@@ -36,9 +36,13 @@ In multiplayer every player needs the mod.
 
 ## Building
 
-`dotnet build -c Release` builds `TmzOpExt.dll` and copies it and `About/` to
-`Documents\My Games\Stationeers\mods\TmzOpExt\`. The game is expected in
+`dotnet build -c Release` builds `TmzOpExt.dll` and copies it, `About/` and
+`ic10-instructions.json` to `Documents\My Games\Stationeers\mods\TmzOpExt\`. The game is expected in
 `C:\Program Files (x86)\Steam\steamapps\common\Stationeers\`; pass `-p:StationeersDirectory=...`
 (with a trailing `\`) if it's elsewhere, or `-p:ModDirectory=...` to copy the mod somewhere else.
 
-[TESTING.md](TESTING.md) lists the checks to run in game.
+[TESTING.md](TESTING.md) lists the checks to run in game, and their results.
+
+## License
+
+[AGPL-3.0-or-later](LICENSE), as IC10 Bench.
