@@ -8,9 +8,7 @@ LaunchPad mod list. A creative world is quickest: an IC Housing with a chip, and
 (or a second chip with `get`) to read registers and the stack. Line numbers count from 0, as the
 rack's debugger does. Fill in **Got**.
 
-**Results: 0.1.0, 2026-10-25,** game 0.2.6428.27798 with StationeersLaunchPad. All pass except 18, which
-was rewritten after its first run (that run saved without showing the call was still open) and
-hasn't been run again.
+**Results: 0.1.0, 2026-10-25,** game 0.2.6428.27798 with StationeersLaunchPad. All pass.
 
 ## Loading (the spike: do these first)
 
@@ -122,7 +120,7 @@ tmjr r0
 
 | # | Check | Expected | Got |
 | --- | --- | --- | --- |
-| 18 | Run it. Before saving, read Setting, r2 and `ra`; save, quit to the menu, load | Before saving: Setting 0, r2 below 600, `ra` 502 (the call is open). After loading, r2 carries on from about where it was; when it reaches 600, Setting 14 and `ra` 509. | Not run yet in this form |
+| 18 | Run it. Before saving, read Setting, r2 and `ra`; save, quit to the menu, load | Before saving: Setting 0, r2 below 600, `ra` 502 (the call is open). After loading, r2 carries on from about where it was; when it reaches 600, Setting 14 and `ra` 509. | Pass |
 
 ## Editor and help
 
