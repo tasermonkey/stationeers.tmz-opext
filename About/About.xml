@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>TMZ Opcode Extensions</Name>
+  <ModID>tasermonkey.tmzopext</ModID>
+  <Author>tasermonkey</Author>
+  <Version>0.1.0</Version>
+  <!-- Steam description, with Steam's markup -->
+  <Description>[h1]TMZ Opcode Extensions (tmz-opext)[/h1]
+This is a Plugin Mod. It requires BepInEx with the StationeersLaunchPad plugin: https://github.com/StationeersLaunchPad/StationeersLaunchPad
+
+Adds IC10 opcodes for calling functions with a real call stack: a call saves the registers you choose and the line to return to, passes up to five values, and comes back with one, in one instruction each way.
+
+[b]What this mod adds[/b]
+[list]
+[*] [b]tmsi base count[/b]: starts a call stack at stack address [i]base[/i], growing down. Each call saves r0 up to r(count-1) (0 to 16 registers) and the line to return to. Sets ra to the stack's top.
+[*] [b]tmjc r? target a b c d e[/b]: calls the function at the line or label [i]target[/i], with up to five values in r0-r4. Its return value lands in [i]r?[/i].
+[*] [b]tmjr value[/b]: returns from the last call: restores its registers and ra, and puts the value in the caller's [i]r?[/i].
+[/list]
+
+[b]Example[/b]
+[code]
+tmsi 511 16
+move r1 43
+tmjc r0 double r1
+s db Setting r0   # 86
+yield
+double:
+mul r0 r0 2
+tmjr r0
+[/code]
+
+Calls nest, and recurse. [i]ra[/i] is the call stack's pointer, so don't use jal while a call is open. push and pop still work, from address 0 up.
+
+In multiplayer every player needs the mod.
+  </Description>
+  <!-- In-game description, with TextMeshPro tags -->
+  <InGameDescription><![CDATA[<size="30"><color=#ffa500>TMZ Opcode Extensions</color></size>
+Adds IC10 opcodes for calling functions with a call stack:
+tmsi base count: starts a call stack at stack address base; each call saves r0 to r(count-1) and its return line.
+tmjc r? target a b c d e: calls target with up to five values in r0-r4; the return value lands in r?.
+tmjr value: returns, restoring the saved registers.
+ra is the call stack's pointer, so don't use jal while a call is open.
+]]></InGameDescription>
+  <ChangeLog>v0.1.0
+- First version: tmsi, tmjc, tmjr
+  </ChangeLog>
+  <Tags>
+    <Tag>Logic</Tag>
+    <Tag>BepInEx</Tag>
+    <Tag>StationeersLaunchPad</Tag>
+  </Tags>
+</ModMetadata>

@@ -1,0 +1,32 @@
+{
+  "name": "tmz-opext",
+  "instructions": {
+    "tmsi": {
+      "description": "Starts a call stack for tmjc and tmjr at stack address base (2 to 511), growing down. Each call saves r0 up to r(count-1), count 0 to 16, and the line to return to. Sets ra to the stack's top. Run it before the first tmjc, at the start of the program.",
+      "operands": [
+        { "name": "base", "type": "r?|int" },
+        { "name": "count", "type": "r?|int" }
+      ]
+    },
+    "tmjc": {
+      "description": "Calls a function: saves the line to return to and the registers tmsi chose on the call stack, puts up to five values a-e into r0-r4, and jumps to the line or label. tmjr's value goes into the register r? (r0 to r15).",
+      "operands": [
+        { "name": "dest", "type": "r?", "role": "write" },
+        { "name": "target", "type": "r?|int", "role": "jump" },
+        { "name": "a", "type": "r?|num", "optional": true },
+        { "name": "b", "type": "r?|num", "optional": true },
+        { "name": "c", "type": "r?|num", "optional": true },
+        { "name": "d", "type": "r?|num", "optional": true },
+        { "name": "e", "type": "r?|num", "optional": true }
+      ],
+      "flow": "call"
+    },
+    "tmjr": {
+      "description": "Returns from the last tmjc: restores the registers it saved and ra, puts the value (if given) into tmjc's register, and jumps to the line after the tmjc.",
+      "operands": [
+        { "name": "value", "type": "r?|num", "optional": true }
+      ],
+      "flow": "return"
+    }
+  }
+}
